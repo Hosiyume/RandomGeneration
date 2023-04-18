@@ -1,0 +1,11 @@
+{
+  "name": "随机数生成器",
+  "short_name": "随机数生成器",
+  "id": "./",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#03173d",
+  "prefer_related_applications": false,
+  "icons": []
+}

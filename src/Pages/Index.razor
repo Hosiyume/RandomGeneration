@@ -1,0 +1,63 @@
+@page "/"
+
+<div id="block">
+    <span>区间</span>
+    <br />
+    <span>[</span>
+    <input @bind="@_min" />
+    <span>,</span>
+    <input @bind="@_max" />
+    <span>)</span>
+</div>
+
+<div id="block">
+    <span>数量</span>
+    <br />
+    <input @bind="@_count" />
+</div>
+
+<div id="block">
+    <span>是否唯一</span>
+    <input type="checkbox" @bind="@_isOnly" />
+</div>
+
+<div id="block">
+    <button @onclick="Spawn">生成</button>
+    <code role="status">@JsonSerializer.Serialize(_values)</code>
+</div>
+
+@code
+{
+    private int _min, _max, _count;
+    private List<int> _values = new();
+    private bool _isOnly = false;
+    private void Spawn()
+    {
+        if (_max < _min)
+        {
+            _max = _min;
+        }
+        if (_count < 0)
+        {
+            _count = 0;
+        }
+        if (_isOnly && _max - _min < _count)
+        {
+            _count = _max - _min;
+        }
+        if (_values.Count > 0)
+        {
+            _values = new();
+        }
+        for (int i = 0; i < _count; ++i)
+        {
+            int value = Random.Shared.Next(_min, _max);
+            if (_isOnly && _values.Contains(value))
+            {
+                --i;
+                continue;
+            }
+            _values.Add(value);
+        }
+    }
+}
